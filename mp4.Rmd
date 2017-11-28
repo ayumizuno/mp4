@@ -116,6 +116,8 @@ top20profit <- disney_clean %>%
 ```{r}
 profit_plot <- ggplot(top20profit, aes(x=reorder(title, profit), y=profit))+
   geom_bar(stat="identity", aes(fill=factor(decade)))+
+  geom_point(aes(y=budget), color="red")+
+  annotate("text", x = "Finding Nemo", y = 120000000, label = "budget", color="red")+
   geom_text(aes(label=paste("$", profit%/%1000000, "m",sep=""), hjust=0))+
   scale_y_continuous(limits = c(0, 3.5e+08), expand=c(0,0),labels = scales::comma) +
   ggtitle("Top 20 Profitable Movies")+
@@ -125,7 +127,34 @@ profit_plot <- ggplot(top20profit, aes(x=reorder(title, profit), y=profit))+
   scale_fill_brewer(palette="GnBu")+
   theme(legend.title=element_blank())
 
+
 profit_plot
 ```
-  
+If we take the top 20 profittable Disney animations, we find that in general, the most profittable movies are the ones that have been produced recently. The top of the chart is dominated by movies produced in the 2000s and 2010s, with *Finding Nemo* and *Fining Dory* taking the top two spots.
+
+Looking at the top 20 profittable Disney Animations, one might notice that the top five movies with the highest budget were all produced in the 2010s: *Finding Dory*, *Inside Out*, *Zootopia*, *Frozen*, and *Moana*. 
+
+The general increase in budgets of animations over the past decades may be attributed to the rise in expensive, new technologies that have the ability to boost the quality of these animations. Producing animations requires software engineers as well as graphic artists in addition to actors who are only used for the characters' voices. 
+
+However, the expensive cost of producing an animation may be worth investing in. 
+
+"Animated films still offer the largest risk/reward equation in the movie business", says Kyle Stock of *Bloomberg News*.
+
+According to *The Seattle Times*, though animations are the most expensive to produce, animations are also the most profitable movie genre. Although a high budget animation is a risk, spending more to produce a quality piece may result in favorable earnings such as *Finding Dory* was able to do. 
+
+Source: https://www.seattletimes.com/business/animated-movies-hit-high-point-so-do-studios-costs-potential-rewards/
+
+Interestingly, before recent decades, the budget of an animation did not seem to have much influence on how well the film performed. Although all of the movies in the top 20 produced during and before the 1960s had low budgets, they were extremely profittable. 
+
+Take, for example, *Snow White and the Seven Dwarfs*, produced in 1937, which is the most profittable Disney animation before the 1990s. The success of this animation despite its low budget may be due to the fact that the film was the first full-length animation and the first Walt Disney Animation Studios film. The significant context of this film's production explains its popularity and high profit earnings that continue to compete with movies produced today. 
+
+source: https://en.wikipedia.org/wiki/Traditional_animation
+
+Another notable movie is *The Lion King*, which had the lowest budget out of the top 3 most profittable movies and made greater profit than *Frozen*. *The Lion King*, produced in 1994, had a budget of 45 million dollars while the film earned a profit of roughly 267 million dollars. Although the film was a great success, before its release, Disney did not have high expectations for the film. Since *The Lion King* featured animals rather than people, many believed that the film would be a failure compared to *Pochahontas*, which was also to be released aroudn the same time. 
+
+There are various factors that led to the unexpected success of *The Lion King*. One significant reason is that the story of the film, which was Disney's first story created just for the film, featured a setting in Africa and distanced itself from the traditional European style settings. Instead of princesses and castles, the focus on lions in Africa may have helped widen the audience.  
+
+source:https://www.tor.com/2015/06/19/the-lion-king-was-the-most-unlikely-success-story-you-will-ever-hear/#
+
+Despite low budgets, Disney was able to produce several films that were highly profittable. This suggests that a film's success depends on more than simply its budget. Though the extent to which this is true today is unclear, the surroudning context and the driving story of the films are also important and may play a large role in helping to draw audiences in.   
 
