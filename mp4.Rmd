@@ -1,0 +1,131 @@
+---
+title: "mp4"
+author: "Sunnie Ning & Ayumi Mizuno"
+date: "November 27, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r message= FALSE, warning=FALSE}
+library(mdsr)
+library(RMySQL)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(ggthemes)
+
+db <- dbConnect_scidb(dbname = "imdb")
+```
+```{r ECHO=FALSE}
+disney <- db %>%
+  dbGetQuery("SELECT DISTINCT (t.id),t.title, t.production_year, mi.info, mi3.info FROM company_name cn
+              JOIN movie_companies mc ON mc.company_id = cn.id
+              JOIN title t ON mc.movie_id = t.id
+              JOIN movie_info mi on mi.movie_id = t.id
+              JOIN movie_info mi2 on mi2.movie_id = t.id
+              JOIN movie_info mi3 on mi3.movie_id = t.id
+              WHERE cn.name LIKE '%Walt Disney%'
+              AND t.kind_id = 1
+              AND mi.info_type_id=105
+             AND mi2.info_type_id = 3
+            AND mi2.info = 'Animation'
+            AND mi3.info_type_id=107
+              AND mi3.info LIKE '%(USA)'")
+
+colnames(disney)[4]= "budget"
+colnames(disney)[5]= "gross"
+save(disney,file = "Disney.rda")
+```
+
+```{r}
+load("Disney.rda")
+```
+```{r}
+
+disney_clean <- disney %>% 
+  filter(id != 3792055 & id != 3968288) %>%
+  select(-id) %>%
+  arrange(production_year) %>% 
+  mutate(gross = str_extract(strsplit(gross,' '),"[[0-9]+,]+")) %>% 
+  mutate(gross = as.numeric(gsub(",","",gross))) %>% 
+  mutate(budget= str_extract(strsplit(budget,' '),"[[0-9]+,]+")) %>% 
+  mutate(budget = as.numeric(gsub(",","",budget)))
+
+```
+```{r}
+disney_clean_bar <- disney_clean%>% 
+  gather(key = 'type', value = 'amount',budget, gross)
+```
+
+```{r}
+p<- ggplot(data = disney_clean_bar, aes(x =production_year, y=amount))+
+  geom_bar(stat="identity", aes(fill = type), position = 'dodge')
+  
+p
+```
+
+
+
+
+
+```{r}
+disney_clean <- disney_clean %>%
+  mutate(decade = (production_year %/% 10)*10, profit = gross-budget) 
+```
+
+```{r}
+p2<-ggplot(disney_clean,aes(x =budget, y = gross)) +
+  geom_point(aes(color = factor(decade)))+
+  scale_color_discrete(labels = c('1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010'))+
+  geom_smooth(method = 'lm') +
+  scale_x_continuous(labels = scales::comma) +
+  scale_y_continuous(labels = scales::comma) +
+  xlab("Budget ($)")+
+  ylab("Gross ($)")+
+  ggtitle("Gross and Budget of Movies by Decade")+
+  theme(legend.title=element_blank())+
+  scale_color_brewer(palette="Greens")
+
+p2
+```
+
+```{r}
+disney_point <- disney_clean %>%
+  select(decade, title, profit) %>%
+  group_by(decade) %>%
+  summarize(medProfit = median(profit))
+```
+
+```{r}
+p3<-ggplot(disney_point,aes(x=factor(decade), y = medProfit)) +
+  geom_bar(stat="identity", fill="darkblue")+
+  scale_y_continuous(labels = scales::comma) +
+  xlab("")+
+  ylab("Profit ($)")+
+  ggtitle("Median Profit Earned by Decade")
+p3
+```
+```{r}
+top20profit <- disney_clean %>%
+  arrange(desc(profit)) %>%
+  head(20)
+
+```
+```{r}
+profit_plot <- ggplot(top20profit, aes(x=reorder(title, profit), y=profit))+
+  geom_bar(stat="identity", aes(fill=factor(decade)))+
+  geom_text(aes(label=paste("$", profit%/%1000000, "m",sep=""), hjust=0))+
+  scale_y_continuous(limits = c(0, 3.5e+08), expand=c(0,0),labels = scales::comma) +
+  ggtitle("Top 20 Profitable Movies")+
+  xlab("")+
+  ylab("Profit ($)")+
+  coord_flip()+
+  scale_fill_brewer(palette="GnBu")+
+  theme(legend.title=element_blank())
+
+profit_plot
+```
+  
+
