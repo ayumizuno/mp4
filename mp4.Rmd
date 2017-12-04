@@ -12,11 +12,6 @@ output:
 The date is `r format(Sys.Date(), "%B %e, %Y")` 
 #Big Budget = Top Box Office? Not so for Disney Animations
 
-title alternatives:
-
-The Dollars Behind the Disney Animations
-
-The Disney Animations Secret No One Wants to Know
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
