@@ -4,11 +4,13 @@ author: "Sunnie Ning & Ayumi Mizuno"
 date: "November 27, 2017"
 output: 
   html_document:
-    fig_width: 7
+    fig_width: 9
     fig_height: 6
     df_print: paged 
     code_folding: hide
-    theme: Cosmo
+    theme: cosmo
+    highlight: tango
+
 ---
 The date is `r format(Sys.Date(), "%B %e, %Y")` 
 #Big Budget = Top Box Office? Not so for Disney Animations
