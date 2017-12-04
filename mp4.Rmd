@@ -9,11 +9,12 @@ output:
     df_print: paged 
     code_folding: hide
     theme: cosmo
-    highlight: tango
-
+    highlight: monochrome
+    css: style.css
 ---
-The date is `r format(Sys.Date(), "%B %e, %Y")` 
-#Big Budget = Top Box Office? Not so for Disney Animations
+The date is `r format(Sys.Date(), "%B %e, %Y")`  
+
+#Big Budget = Top Box Office? Not so for Disney Animations {#paragraph .n} 
 
 
 ```{r setup, include=FALSE}
@@ -70,14 +71,12 @@ disney_clean <- disney_clean %>%
 From *Three Little Pigs* in 1933 to *Coco* in November 2017, Disney animated films are an all-time favorite, attracting curious kids and nostalgic adults alike. The cost of making animated films have soared dramatically, with a competitive market, sophisticated technologies, and ever-expanding crew. Behind the glamorous visual effects and splendid plots, however, the profit might no longer justify the cost. 
 
 
-<<<<<<< HEAD
 To investigate this relationship between profit and cost, we pulled Disney animations data from the IMDB database, from Three Little Pigs in 1933 that runs for eight minutes, to the smartphone-themed unsuccessful The Emoji Movie in 2017. The data confirm our gut feeling that an increase in both the cost and the box office is a definite trend over time, but the relationship between cost and profit is muddier.
 ```{r}
 disney_clean
 ```
-=======
+
 To investigate the relationship between profit and cost, we pulled data on Disney animated films from the IMDB database, starting with *Three Little Pigs* in 1933, which runs for eight minutes, to the unsuccessful smartphone-themed *The Emoji Movie* in 2017, the latest record. The data confirms our gut feeling that an increase in the cost is a definite trend over time, but the relationship between cost and profit is muddy. 
->>>>>>> c357587828cbe9ea08c0b3de51cc72c25a17dac2
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -98,22 +97,20 @@ p
 
 
 
-<<<<<<< HEAD
-
 But big-budget films don’t always reap good box office. In fact, the scatter plot shows that the relationship can be slightly negative. Interestingly, more box office bombs are produced in 2000 than in any other era. The greatest box-office disaster on our list, Treasure Planet (2006), cost around $100 million more than it made.
 Our data is the exponential increase in average budget over time. The average profit shows a downward trend ever since 1960, the decade filled with classic Disney animations such as The Jungle Book and One Hundred and One Dalmatians. The sum of budget and profit over decades show the same trend. 
 
 
 
 
-```{r, echo=FALSE}
-=======
+
+
 Big-budget films don’t always generate good box office numbers. In fact, the scatter plot above shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
 
 
 
-```{r}
->>>>>>> c357587828cbe9ea08c0b3de51cc72c25a17dac2
+```{r, echo=FALSE}
+
 disney_mean <- disney_clean %>%
   select(decade, title, profit, budget) %>%
   group_by(decade) %>%
