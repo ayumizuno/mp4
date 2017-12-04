@@ -26,6 +26,7 @@ library(dplyr)
 library(ggplot2)
 library(stringr)
 library(ggthemes)
+library(gridExtra)
 
 db <- dbConnect_scidb(dbname = "imdb")
 ```
@@ -71,6 +72,9 @@ From Three Little Pigs in 1937 to the newest release Coco, Disney animations are
 
 
 To investigate this relationship between profit and cost, we pulled Disney animations data from the IMDB database, from Three Little Pigs in 1933 that runs for eight minutes, to the smartphone-themed unsuccessful The Emoji Movie in 2017. The data confirm our gut feeling that an increase in both the cost and the box office is a definite trend over time, but the relationship between cost and profit is muddier.
+```{r}
+disney_clean
+```
 
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -91,8 +95,10 @@ p2
 
 
 
+
 But big-budget films don’t always reap good box office. In fact, the scatter plot shows that the relationship can be slightly negative. Interestingly, more box office bombs are produced in 2000 than in any other era. The greatest box-office disaster on our list, Treasure Planet (2006), cost around $100 million more than it made.
 Our data is the exponential increase in average budget over time. The average profit shows a downward trend ever since 1960, the decade filled with classic Disney animations such as The Jungle Book and One Hundred and One Dalmatians. The sum of budget and profit over decades show the same trend. 
+
 
 
 
@@ -103,14 +109,32 @@ disney_mean <- disney_clean %>%
   summarize(Profit = mean(profit),
             Budget = mean(budget)) %>%
   gather(key = 'type', value = 'value',Profit,Budget )
-p5<-ggplot(disney_mean,aes(x=factor(decade), y = value, fill = type)) +
+p2<-ggplot(disney_mean,aes(x=factor(decade), y = value, fill = type)) +
   geom_bar(stat="identity", position= "dodge")+
   scale_y_continuous(labels = scales::comma) +
   scale_fill_brewer(palette= 'Set1')+
   xlab("")+
   ylab("Profit ($)")+
-  ggtitle("Mean Profit and Budget per Animation by Decade")
-p5
+  ggtitle("Mean Profit and Budget of \nAnimated Films by Decade")+
+  theme(legend.title=element_blank(),axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+disney_sum <- disney_clean %>%
+  select(decade, title, profit, budget) %>%
+  group_by(decade) %>%
+  summarize(Profit = sum(profit),
+            Budget = sum(budget)) %>%
+  gather(key = 'type', value = 'value',Profit,Budget )
+p3<-ggplot(disney_sum,aes(x=factor(decade), y = value, fill = type)) +
+  geom_bar(stat="identity", position= "dodge")+
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_brewer(palette= 'Set1')+
+  xlab("")+
+  ylab("Profit ($)")+
+  ggtitle("Sum Profit and Budget of \nAnimated Films by Decade")+
+  theme(legend.title=element_blank(), axis.text.x = element_text(angle = 90, hjust = 1))
+
+grid.arrange(p2, p3, ncol=2)
 ```
 
 It is no secret that animation films cost hundreds of millions more today than in the golden age of animated films like Pinocchio with a budget of 2.6M US dollars. This increase is unsurprising: times have changed, teams are bigger, technology is more expensive than pencils and paint. According to James Cole, on average most animated films today can range anywhere from 2M to 250M. Some of the money will go to the writers, some to storyboard artists, some to background artists, layout artists, animators, directors and most of the budget go to the stars. Another factor that may have inflated the budget could be competition. With many more studios joining the animation genre, it is hard to keep the budget down. This budget inflation does not include the additional $150 million that goes into promotion.
