@@ -146,10 +146,7 @@ p3<-ggplot(disney_sum,aes(x=factor(decade), y = value, fill = type)) +
   theme(legend.title=element_blank(), axis.text.x = element_text(angle = 90, hjust = 1))
 
 grid.arrange(p2, p3, ncol=2)
-<<<<<<< HEAD
-=======
 
->>>>>>> c357587828cbe9ea08c0b3de51cc72c25a17dac2
 ```
 
 Our data also shows an exponential increase in average budget over time. At the same time, the average profit shows a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years -  the sum of profit over decades includes a dip in the 2000s and fails to show a steep rise in profit over time. 
