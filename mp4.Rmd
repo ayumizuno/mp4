@@ -158,7 +158,7 @@ With budgets running high and box-office profits going downhill, why are produce
 
 Even though animated films are making less, animated movies are still the most profitable genre, averaging a 36 percent return over the past decade, according to [*The Seattle Times*](https://www.seattletimes.com/business/animated-movies-hit-high-point-so-do-studios-costs-potential-rewards/). A high budget animated film is a risk, but spending more to produce a quality piece may result in favorable earnings such as *Finding Dory* was able to do.
 
-In addition, animation studios are producing animated films at a higher frequency. Maybe investing in multiple movies provides a safety vault for profit: as long as a few of them become big box busters, the studios are saved. In the 2000s, 23 animated films were produced, and in the 2010s, 28 movies have already been produced despite that there are two more years to go.
+Additionally, animated films are taking an increasing share of the film market. [*The Numbers*](https://www.the-numbers.com/market/production-method/Digital-Animation) shows that digital animation has risen from a 2% market share in 1995 to ten-fold increase of 20% in 2016. Every 1 in 5 dollors made in the film industry goes to animated films. 
 
 ```{r}
 top20profit <- disney_clean %>%
