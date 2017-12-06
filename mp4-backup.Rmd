@@ -1,0 +1,215 @@
+---
+title: "mp4"
+author: "Sunnie Ning & Ayumi Mizuno"
+date: "November 27, 2017"
+output: 
+  html_document:
+    fig_width: 9
+    fig_height: 6
+    df_print: paged 
+    code_folding: hide
+    theme: cosmo
+    highlight: monochrome
+    css: style.css
+---
+The date is `r format(Sys.Date(), "%B %e, %Y")`  
+
+#Big Budget = Top Box Office? Not so for Disney Animations {#paragraph .n} 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r message= FALSE, warning=FALSE}
+library(mdsr)
+library(RMySQL)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(ggthemes)
+library(gridExtra)
+
+db <- dbConnect_scidb(dbname = "imdb")
+```
+```{r ECHO=FALSE, eval=FALSE}
+disney <- db %>%
+  dbGetQuery("SELECT DISTINCT (t.id),t.title, t.production_year, mi.info, mi3.info FROM company_name cn
+              JOIN movie_companies mc ON mc.company_id = cn.id
+              JOIN title t ON mc.movie_id = t.id
+              JOIN movie_info mi on mi.movie_id = t.id
+              JOIN movie_info mi2 on mi2.movie_id = t.id
+              JOIN movie_info mi3 on mi3.movie_id = t.id
+              WHERE cn.name LIKE '%Walt Disney%'
+              AND t.kind_id = 1
+              AND mi.info_type_id=105
+             AND mi2.info_type_id = 3
+            AND mi2.info = 'Animation'
+            AND mi3.info_type_id=107
+              AND mi3.info LIKE '%(USA)'")
+
+colnames(disney)[4]= "budget"
+colnames(disney)[5]= "gross"
+save(disney,file = "Disney.rda")
+```
+
+```{r}
+load("Disney.rda")
+
+disney_clean <- disney %>% 
+  filter(id != 3792055 & id != 3968288) %>%
+  select(-id) %>%
+  arrange(production_year) %>% 
+  mutate(gross = str_extract(strsplit(gross,' '),"[[0-9]+,]+")) %>% 
+  mutate(gross = as.numeric(gsub(",","",gross))) %>% 
+  mutate(budget= str_extract(strsplit(budget,' '),"[[0-9]+,]+")) %>% 
+  mutate(budget = as.numeric(gsub(",","",budget)))
+
+disney_clean <- disney_clean %>%
+  mutate(decade = (production_year %/% 10)*10, profit = gross-budget) 
+```
+
+From *Three Little Pigs* in 1933 to *Coco* in November 2017, Disney animated films are an all-time favorite, attracting curious kids and nostalgic adults alike. The cost of making animated films have soared dramatically, with a competitive market, sophisticated technologies, and ever-expanding crew. Behind the glamorous visual effects and splendid plots, however, the profit might no longer justify the cost. 
+
+
+To investigate this relationship between profit and cost, we pulled Disney animations data from the IMDB database, from Three Little Pigs in 1933 that runs for eight minutes, to the smartphone-themed unsuccessful The Emoji Movie in 2017. The data confirm our gut feeling that an increase in both the cost and the box office is a definite trend over time, but the relationship between cost and profit is muddier.
+```{r}
+disney_clean
+```
+
+To investigate the relationship between profit and cost, we pulled data on Disney animated films from the IMDB database, starting with *Three Little Pigs* in 1933, which runs for eight minutes, to the unsuccessful smartphone-themed *The Emoji Movie* in 2017, the latest record. The data confirms our gut feeling that an increase in the cost is a definite trend over time, but the relationship between cost and profit is muddy. 
+
+
+```{r, warning=FALSE, message=FALSE}
+p<-ggplot(disney_clean,aes(x =budget, y = profit)) +
+  geom_point(aes(color = factor(decade)),position='dodge')+
+  scale_color_discrete(labels = c('1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010'))+
+  geom_smooth(method = 'lm') +
+  scale_x_continuous(labels = scales::comma) +
+  scale_y_continuous(labels = scales::comma) +
+  xlab("Budget ($)")+
+  ylab("Profit ($)")+
+  ggtitle("Profit and Budget of Movies by Decade")+
+  theme(legend.title=element_blank())+
+  scale_color_brewer(palette="Set1")
+
+p
+```
+
+
+
+But big-budget films don’t always reap good box office. In fact, the scatter plot shows that the relationship can be slightly negative. Interestingly, more box office bombs are produced in 2000 than in any other era. The greatest box-office disaster on our list, Treasure Planet (2006), cost around $100 million more than it made.
+Our data is the exponential increase in average budget over time. The average profit shows a downward trend ever since 1960, the decade filled with classic Disney animations such as The Jungle Book and One Hundred and One Dalmatians. The sum of budget and profit over decades show the same trend. 
+
+
+
+
+
+
+Big-budget films don’t always generate good box office numbers. In fact, the scatter plot above shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
+
+
+
+```{r, echo=FALSE}
+
+disney_mean <- disney_clean %>%
+  select(decade, title, profit, budget) %>%
+  group_by(decade) %>%
+  summarize(Profit = mean(profit),
+            Budget = mean(budget)) %>%
+  gather(key = 'type', value = 'value',Profit,Budget )
+p2<-ggplot(disney_mean,aes(x=factor(decade), y = value, fill = type)) +
+  geom_bar(stat="identity", position= "dodge")+
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_brewer(palette= 'Set1')+
+  xlab("")+
+  ylab("Profit ($)")+
+  ggtitle("Mean Profit and Budget of \nAnimated Films by Decade")+
+  theme(legend.title=element_blank(),axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+disney_sum <- disney_clean %>%
+  select(decade, title, profit, budget) %>%
+  group_by(decade) %>%
+  summarize(Profit = sum(profit),
+            Budget = sum(budget)) %>%
+  gather(key = 'type', value = 'value',Profit,Budget )
+p3<-ggplot(disney_sum,aes(x=factor(decade), y = value, fill = type)) +
+  geom_bar(stat="identity", position= "dodge")+
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_brewer(palette= 'Set1')+
+  xlab("")+
+  ylab("Profit ($)")+
+  ggtitle("Sum Profit and Budget of \nAnimated Films by Decade")+
+  theme(legend.title=element_blank(), axis.text.x = element_text(angle = 90, hjust = 1))
+
+grid.arrange(p2, p3, ncol=2)
+
+```
+
+Our data also shows an exponential increase in average budget over time. At the same time, the average profit shows a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years -  the sum of profit over decades includes a dip in the 2000s and fails to show a steep rise in profit over time. 
+
+
+It is no secret that animated films cost hundreds of millions more today than in the Golden age of animated films that included movies such as *Pinocchio* which had a budget of \$2.6 million. The increase in unsurprising: times have changed, teams are bigger, CGI is more expensive than pencils and paint. According to industry analyst [James Cole](https://www.quora.com/What-is-the-average-budget-of-an-animated-movie), on average most animated films today can range anywhere from \$2 million to \$250 million. Some of the money goes to the writers, some to storyboard artists, some to background artists, layout artists, animators, directors and most of the budget goes to the stars. Surprisingly, more are more dollars are allocated for server costs as well. According to [*The Slate*](http://www.slate.com/blogs/quora/2013/06/20/pixar_and_monsters_university_why_do_animated_movies_cost_so_much.html), "for a movie of the size of *Toy Story*, you need a server farm with 5,000 or more machines running all year. That is a lot of computing power, support personnel and energy."
+
+
+Another factor contributing to the inflated budget may be competition in a saturated market with an audience demanding more realistic productions. With many more studios joining the animations genre, it is hard to keep the budget down. This budget inflation does not include the additional $150 million that goes towards promotion. At the same time, while the rush towards 3D and XD produces a better theatrical experience, it expectedly raises production time and cost. 
+
+With budgets running high and box-office profits going downhill, why are producers still plunging into this dangerous market?
+
+Even though animated films are making less, animated movies are still the most profitable genre, averaging a 36 percent return over the past decade, according to [*The Seattle Times*](https://www.seattletimes.com/business/animated-movies-hit-high-point-so-do-studios-costs-potential-rewards/). A high budget animated film is a risk, but spending more to produce a quality piece may result in favorable earnings such as *Finding Dory* was able to do.
+
+In addition, animation studios are producing animated films at a higher frequency. Maybe investing in multiple movies provides a safety vault for profit: as long as a few of them become big box busters, the studios are saved. In the 2000s, 23 animated films were produced, and in the 2010s, 28 movies have already been produced despite that there are two more years to go.
+
+```{r}
+top20profit <- disney_clean %>%
+  arrange(desc(profit)) %>%
+  head(20)
+
+profit_plot <- ggplot(top20profit, aes(x=reorder(title, profit), y=profit))+
+  geom_bar(stat="identity", aes(fill=factor(decade)))+
+  geom_point(aes(y=budget), color="red")+
+  annotate("text", x = "Finding Nemo", y = 120000000, label = "budget", color="red")+
+  geom_text(aes(label=paste("$", profit%/%1000000, "m",sep=""), hjust=0))+
+  scale_y_continuous(limits = c(0, 3.5e+08), expand=c(0,0),labels = scales::comma) +
+  ggtitle("Top 20 Profitable Movies")+
+  xlab("")+
+  ylab("Profit ($)")+
+  coord_flip()+
+  scale_fill_brewer(palette="GnBu")+
+  theme(legend.title=element_blank())
+
+
+profit_plot
+```
+
+
+The 20 most profitable Disney animated films chart confirms the greater investments in animated films today. The most profitable movies are the ones that have been produced more recently. Movies produced in the 2000s and 2010s dominate the chart, with *Finding Nemo* and *Finding Dory* taking the top two spots at a strong $286 million each (which can buy you [the most expensive house in the US](https://www.forbes.com/forbes/welcome/?toURL=https://www.forbes.com/sites/karenhua/2017/01/18/inside-a-250-million-mansion-the-most-expensive-home-for-sale-in-the-u-s/&refURL=https://www.google.com/&referrer=https://www.google.com/), and still leave you a couple million for furniture!). 
+
+
+Additionally, the top five movies with the highest budget are all from the 2010s: *Finding Dory*, *Inside Out*, *Zootopia*, *Frozen*, and *Moana*.
+
+
+On the other hand, most of the industry looks away from box-office for profits. According to *The Seattle Times*, financiers have been emboldened by the potential for fat returns outside of theaters. "'Frozen', with its massive \$1.3 billion in ticket sales, was dwarfed by an estimated \$6 billion in ancillary product revenue. Producers are almost thinking more about that side of the business and certainly earlier than ever before,” Piper Jaffray analyst Stan Meyer said. “It’s gone from toys to food and clothes and a bunch of other categories.”
+
+
+
+Interestingly, before recent decades, the budget of an animated film did not seem to have much influence on how well the film performed. Although all of the movies in the 20 most profittable that were produced before the 1970s had low budgets, they were extremely successful.  
+
+
+Take, for example, *Snow White and the Seven Dwarfs* (1937), the most profitable Disney animated film before the 1990s. This animated film was the [first full-length animated film and the first Walt Disney Animation Studios film](https://en.wikipedia.org/wiki/Snow_White_and_the_Seven_Dwarfs_(1937_film)). The significant context of this film's production may explain its popularity and high profit earnings. 
+
+Classics like *Snow White* have become historical milestones, cultural icons, and a source of nostalgia. They continue to gain an upper hand in competition with new animated films: *The Lion King*, which has the lowest budget out of the top three most profitable films, made greater profit than *Frozen*.
+
+
+Even though Disney has mostly abandoned small production animated films, some studios of today are still making low budget animated films for a few million or more. [*The Missing Lynx*](https://www.revolvy.com/main/index.php?s=The%20Missing%20Lynx&item_type=topic), budgeted at \$6.5 million and produced by Spanish studios Kandor Graphics and YaYa! Films, is an example. According to [Cartoon Brew](http://www.cartoonbrew.com/feature-film/new-wave-european-animated-features-small-budgets-big-freedom-149162.html), the computer-animated *Cinderella the Cat*, scheduled for release this year, has a minuscule budget of €1.3 million. In the film, Italian studio MAD Entertainment manages to create an intense, dark sci-fi adventure based on the classic fairytale.
+
+
+How does a filmmaker deal with a budget that’s about 1% of contemporary Disney productions? “We try to build a story that we can handle with the budget we have,” *Cinderella the Cat* director Cappiello told Cartoon Brew.
+
+
+“We make a beautiful house,” producer Stella added. “We don’t make a skyscraper that will fall apart and that doesn’t have a soul.”
+
+In general, our data shows that an animated film’s success depends on more than simply its budget. The ever-rising budget of animated films might reflect Hollywood’s blockbuster gambling addiction as much as its profitability. There is no doubt in the danger of pouring money into a buzzing genre eyeing grand slams like *Frozen* regardless of the general box-office trend: it’s not that there isn’t demand; it’s just there’s an awful lot of supply.
+
+
+
