@@ -70,7 +70,7 @@ disney_clean <- disney_clean %>%
 
 It is no secret that animated films cost hundreds of millions more today than in the Golden age of animated films that included movies such as *Pinocchio* which had a budget of \$2.6 million. The increase in unsurprising: times have changed, teams are bigger, CGI is more expensive than pencils and paint. 
 
-According to industry analyst [James Cole](https://www.quora.com/What-is-the-average-budget-of-an-animated-movie), on average most animated films today can range anywhere from \$2 million to \$250 million. Some of the money goes to the writers, some to storyboard artists, some to background artists, layout artists, animators, directors and most of the budget goes to the stars. Surprisingly, more are more dollars are allocated for server costs as well. According to [*The Slate*](http://www.slate.com/blogs/quora/2013/06/20/pixar_and_monsters_university_why_do_animated_movies_cost_so_much.html), "for a movie of the size of *Toy Story*, you need a server farm with 5,000 or more machines running all year. That is a lot of computing power, support personnel and energy." 
+According to industry analyst [James Cole](https://www.quora.com/What-is-the-average-budget-of-an-animated-movie), on average most animated films today can range anywhere from \$2 million to \$250 million. Some of the money goes to the writers, some to storyboard artists, some to background artists, layout artists, animators, directors and most of the budget goes to the stars. Surprisingly, more and more dollars are allocated for server costs as well. According to [*The Slate*](http://www.slate.com/blogs/quora/2013/06/20/pixar_and_monsters_university_why_do_animated_movies_cost_so_much.html), "for a movie of the size of *Toy Story*, you need a server farm with 5,000 or more machines running all year. That is a lot of computing power, support personnel and energy." 
 
 Behind the glamorous visual effects and splendid plots, however, the profit might no longer justify the cost. To investigate the relationship between profit and cost, we pulled data on Disney animated films from the IMDB database, starting with *Three Little Pigs* in 1933, which runs for eight minutes, to the unsuccessful smartphone-themed *The Emoji Movie* in 2017, the latest record. The data confirms our gut feeling that an increase in the cost is a definite trend over time, but the relationship between cost and profit is muddy. 
 
@@ -79,7 +79,7 @@ datatable(disney_clean, options = list(pageLength = 10))
 ```
 
 
-Our data shows an exponential increase in average budget over time. But big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
+The data we collected shows an exponential increase in average budget over time. But big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -99,7 +99,7 @@ p
 ```
 
 
-The average profit shows a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years. Although more and more animated films are produced over the decades, the sum of profit suffers a dip in the 2000s and fails to show a steep rise. At the same time, there is a robust upward trend in budget despite the weak profit.
+Looking at the average profit and budget of animated films by decade, we can see that profit has a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years. Although more and more animated films are produced over the decades, the sum of profit suffers a dip in the 2000s and fails to show a steep rise. At the same time, there is a robust upward trend in budget despite the weak profit.
 
 
 ```{r, echo=FALSE}
