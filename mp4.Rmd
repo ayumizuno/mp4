@@ -79,7 +79,7 @@ datatable(disney_clean, options = list(pageLength = 10))
 ```
 
 
-Our data shows an exponential increase in average budget over time. But big-budget films don’t always generate good box office numbers. In fact, the scatter plot above shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
+Our data shows an exponential increase in average budget over time. But big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -99,10 +99,7 @@ p
 ```
 
 
-At the same time, the average profit shows a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years -  the sum of profit over decades includes a dip in the 2000s and fails to show a steep rise in profit over time. 
-
-
-
+The average profit shows a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years. Although more and more animated films are produced over the decades, the sum of profit suffers a dip in the 2000s and fails to show a steep rise. At the same time, there is a robust upward trend in budget despite the weak profit.
 
 
 ```{r, echo=FALSE}
@@ -142,7 +139,6 @@ grid.arrange(p2, p3, ncol=2)
 
 ```
 
-
  
 The 20 most profitable Disney animated films chart confirms the greater investments in animated films today. The most profitable movies are the ones that have been produced more recently. Movies produced in the 2000s and 2010s dominate the chart, with *Finding Nemo* and *Finding Dory* taking the top two spots at a strong $286 million each (which can buy you [the most expensive house in the US](https://www.forbes.com/forbes/welcome/?toURL=https://www.forbes.com/sites/karenhua/2017/01/18/inside-a-250-million-mansion-the-most-expensive-home-for-sale-in-the-u-s/&refURL=https://www.google.com/&referrer=https://www.google.com/), and still leave you a couple million for furniture!). 
 
@@ -169,7 +165,6 @@ profit_plot <- ggplot(top20profit, aes(x=reorder(title, profit), y=profit))+
 profit_plot
 ```
 
-
 Additionally, the top five movies with the highest budget are all from the 2010s: *Finding Dory*, *Inside Out*, *Zootopia*, *Frozen*, and *Moana*.However, when you take into account both the budget and the profit, older films seem to be winning the race. Although all of the movies in the 20 most profittable that were produced before the 1970s had low budgets, they were extremely successful.  
 
 
@@ -187,6 +182,7 @@ Even though animated films are making less, animated movies are still the most p
 Additionally, animated films are taking an increasing share of the film market. [*The Numbers*](https://www.the-numbers.com/market/production-method/Digital-Animation) shows that digital animation has risen from a 2% market share in 1995 to ten-fold increase of 20% in 2016. Every 1 in 5 dollors made in the film industry goes to animated films.
 
 The charm of animated films to investors also lie outside of the data. Most of the industry looks away from box-office for profits. According to *The Seattle Times*, financiers have been emboldened by the potential for fat returns outside of theaters. "'Frozen', with its massive \$1.3 billion in ticket sales, was dwarfed by an estimated \$6 billion in ancillary product revenue. Producers are almost thinking more about that side of the business and certainly earlier than ever before,” Piper Jaffray analyst Stan Meyer said. “It’s gone from toys to food and clothes and a bunch of other categories.”
+
 
 Even though Disney has mostly abandoned small production animated films, some studios of today are still making low budget animated films for a few million or more. [*The Missing Lynx*](https://www.revolvy.com/main/index.php?s=The%20Missing%20Lynx&item_type=topic), budgeted at \$6.5 million and produced by Spanish studios Kandor Graphics and YaYa! Films, is an example. According to [Cartoon Brew](http://www.cartoonbrew.com/feature-film/new-wave-european-animated-features-small-budgets-big-freedom-149162.html), the computer-animated *Cinderella the Cat*, scheduled for release this year, has a minuscule budget of €1.3 million. In the film, Italian studio MAD Entertainment manages to create an intense, dark sci-fi adventure based on the classic fairytale.
 
