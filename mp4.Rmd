@@ -1,6 +1,4 @@
 ---
-title: "mp4"
-author: "Sunnie Ning & Ayumi Mizuno"
 output:
   html_document:
     code_folding: hide
@@ -11,10 +9,17 @@ output:
     highlight: monochrome
     theme: cosmo
 ---
-The date is `r format(Sys.Date(), "%B %e, %Y")`  
+`r format(Sys.Date(), "%B %e, %Y")` 
 
 #Big Budget = Top Box Office? Not so for Disney Animations {#paragraph .n} 
 
+By Sunnie Ning & Ayumi Mizuno
+
+[GitHub](https://github.com/ayumizuno/mp4.git)
+
+<img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-06/8/14/enhanced/webdr06/original-27378-1433787256-16.jpg?downsize=715:*&output-format=auto&output-quality=auto" width="100%">
+
+Source: [Buzzfeed](https://img.buzzfeed.com/buzzfeed-static/static/2015-06/8/14/enhanced/webdr06/original-27378-1433787256-16.jpg?downsize=715:*&output-format=auto&output-quality=auto) 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -70,7 +75,7 @@ disney_clean <- disney_clean %>%
 
 It is no secret that animated films cost hundreds of millions more today than in the Golden age of animated films that included movies such as *Pinocchio* which had a budget of \$2.6 million. The increase in unsurprising: times have changed, teams are bigger, CGI is more expensive than pencils and paint. 
 
-According to industry analyst [James Cole](https://www.quora.com/What-is-the-average-budget-of-an-animated-movie), on average most animated films today can range anywhere from \$2 million to \$250 million. Some of the money goes to the writers, some to storyboard artists, some to background artists, layout artists, animators, directors and most of the budget goes to the stars. Surprisingly, more are more dollars are allocated for server costs as well. According to [*The Slate*](http://www.slate.com/blogs/quora/2013/06/20/pixar_and_monsters_university_why_do_animated_movies_cost_so_much.html), "for a movie of the size of *Toy Story*, you need a server farm with 5,000 or more machines running all year. That is a lot of computing power, support personnel and energy." 
+According to industry analyst [James Cole](https://www.quora.com/What-is-the-average-budget-of-an-animated-movie), on average most animated films today can range anywhere from \$2 million to \$250 million. Some of the money goes to the writers, some to storyboard artists, some to background artists, layout artists, animators, directors and most of the budget goes to the stars. Surprisingly, more and more dollars are allocated for server costs as well. According to [*The Slate*](http://www.slate.com/blogs/quora/2013/06/20/pixar_and_monsters_university_why_do_animated_movies_cost_so_much.html), "for a movie of the size of *Toy Story*, you need a server farm with 5,000 or more machines running all year. That is a lot of computing power, support personnel and energy." 
 
 Behind the glamorous visual effects and splendid plots, however, the profit might no longer justify the cost. To investigate the relationship between profit and cost, we pulled data on Disney animated films from the IMDB database, starting with *Three Little Pigs* in 1933, which runs for eight minutes, to the unsuccessful smartphone-themed *The Emoji Movie* in 2017, the latest record. The data confirms our gut feeling that an increase in the cost is a definite trend over time, but the relationship between cost and profit is muddy. 
 
@@ -79,7 +84,7 @@ datatable(disney_clean, options = list(pageLength = 10))
 ```
 
 
-Our data shows an exponential increase in average budget over time. But big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
+The data we collected shows an exponential increase in average budget over time. But big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Interestingly, more box office bombs were produced in the 2000s than in any other era, though there is a great number of high budget films in this decade. The greatest box-office disaster on our list, *Treasure Planet* (2006), cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -100,6 +105,7 @@ p
 
 
 The average profit plot shows a mostly downward trend ever since the 1960s, the decade filled with classic Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even when we take into account the increase in animation production numbers in recent years. Although more and more animated films are produced over the decades, the sum of profit suffers a dip in the 2000s and fails to show a steep rise. At the same time, there is a robust upward trend in budget despite the weak profit.
+
 
 
 ```{r, echo=FALSE}
@@ -165,23 +171,31 @@ profit_plot <- ggplot(top20profit, aes(x=reorder(title, profit), y=profit))+
 profit_plot
 ```
 
-Additionally, the top five movies with the highest budget are all from the 2010s: *Finding Dory*, *Inside Out*, *Zootopia*, *Frozen*, and *Moana*.However, when you take into account both the budget and the profit, older films seem to be winning the race. Although all of the movies in the 20 most profittable that were produced before the 1970s had low budgets, they were extremely successful.  
+Additionally, the top five movies with the highest budget are all from the 2010s: *Finding Dory*, *Inside Out*, *Zootopia*, *Frozen*, and *Moana*.However, when you take into account both the budget and the profit, older films seem to be winning the race. Although all of the movies in the 20 most profitable that were produced before the 1970s had low budgets, they were extremely successful.  
 
 
 Take, for example, *Snow White and the Seven Dwarfs* (1937), the most profitable Disney animated film before the 1990s. This animated film was the [first full-length animated film and the first Walt Disney Animation Studios film](https://en.wikipedia.org/wiki/Snow_White_and_the_Seven_Dwarfs_(1937_film)). The significant context of this film's production may explain its popularity and high profit earnings. 
 
 Classics like *Snow White* have become historical milestones, cultural icons, and a source of nostalgia. They continue to gain an upper hand in competition with new animated films: *Snow White*, which has the lowest budget out of the top three most profitable films, made greater profit than *Inside Out*.
 
+<center><img src="http://images5.fanpop.com/image/photos/24800000/Snow-White-and-the-Seven-Dwarfs-snow-white-and-the-seven-dwarfs-24822887-450-253.gif" width="100%"></center>
+Snow White and the Seven Dwarfs (Source: [Fanpop](http://images5.fanpop.com/image/photos/24800000/Snow-White-and-the-Seven-Dwarfs-snow-white-and-the-seven-dwarfs-24822887-450-253.gif))
+
+
 The ever-rising budget of animated films might reflect Hollywood’s blockbuster gambling addiction as much as its profitability. There is no doubt in the danger of pouring money into a buzzing genre eyeing grand slams like *Frozen* regardless of the general box-office trend: it’s not that there isn’t demand; it’s just there’s an awful lot of supply.
 
 
 With budgets running high and box-office profits going downhill, why are producers still plunging into this dangerous market?
 
-Even though animated films are making less, animated movies are still the most profitable genre, averaging a 36 percent return over the past decade, according to [*The Seattle Times*](https://www.seattletimes.com/business/animated-movies-hit-high-point-so-do-studios-costs-potential-rewards/). A high budget animated film is a risk, but spending more to produce a quality piece may result in favorable earnings such as *Finding Dory* was able to do.
+Even though animated films are making less in recent years, animated movies are still the most profitable genre, averaging a 36 percent return over the past decade, according to [*The Seattle Times*](https://www.seattletimes.com/business/animated-movies-hit-high-point-so-do-studios-costs-potential-rewards/). A high budget animated film is a risk, but spending more to produce a quality piece may result in favorable earnings such as *Finding Dory* was able to do.
 
 Additionally, animated films are taking an increasing share of the film market. [*The Numbers*](https://www.the-numbers.com/market/production-method/Digital-Animation) shows that digital animation has risen from a 2% market share in 1995 to ten-fold increase of 20% in 2016. Every 1 in 5 dollors made in the film industry goes to animated films.
 
+
 The charm of animated films to investors also lie outside of the data. Most of the industry looks away from box-office for profits. According to *The Seattle Times*, financiers have been emboldened by the potential for fat returns outside of theaters. "'Frozen', with its massive \$1.3 billion in ticket sales, was dwarfed by an estimated \$6 billion in ancillary product revenue. Producers are almost thinking more about that side of the business and certainly earlier than ever before,” Piper Jaffray analyst Stan Meyer said. “It’s gone from toys to food and clothes and a bunch of other categories.”
+
+<center><img src="https://c1.staticflickr.com/9/8635/15703099267_d7319afc9b_b.jpg" width="100%"></center>
+Frozen Merchandise  (Source: [Flickr](https://c1.staticflickr.com/9/8635/15703099267_d7319afc9b_b.jpg))
 
 
 Even though Disney has mostly abandoned small production animated films, some studios of today are still making low budget animated films for a few million or more. [*The Missing Lynx*](https://www.revolvy.com/main/index.php?s=The%20Missing%20Lynx&item_type=topic), budgeted at \$6.5 million and produced by Spanish studios Kandor Graphics and YaYa! Films, is an example. According to [Cartoon Brew](http://www.cartoonbrew.com/feature-film/new-wave-european-animated-features-small-budgets-big-freedom-149162.html), the computer-animated *Cinderella the Cat*, scheduled for release this year, has a minuscule budget of €1.3 million. In the film, Italian studio MAD Entertainment manages to create an intense, dark sci-fi adventure based on the classic fairytale.
