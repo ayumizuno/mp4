@@ -88,7 +88,7 @@ Behind the glamorous visual effects and splendid plots, however, the profit migh
 datatable(disney_clean, options = list(pageLength = 10))
 ```
 
-Big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Though there is a great number of high budget films in 2000s, ,ore box office bombs were produced then than in any other era. *Treasure Planet* (2006) cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
+Big-budget films don’t always generate good box office numbers. In fact, the scatter plot below shows that the relationship can be slightly negative. Though there is a great number of high budget films in 2000s, more box office bombs were produced then than in any other era. *Treasure Planet* (2006) cost around $100 million more than it made -  approximately the same as the combined annual salaries for the [two highest-paid Hollywood actors in 2016](https://hubpages.com/money/10-Great-Things-to-Buy-for-100-Million-Serious-Money), Angelina Jolie and Leonardo DiCaprio.
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -108,7 +108,7 @@ p
 ```
 
 
-The average profit plot shows a downward trend since the 1960s, the decade filled with successful Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The nonparallel relationship between budget and profit persists even taking into account the increase number ofanimation production numbers. Although more films are produced, the sum of profit suffers a dip in the 2000s and fails to show a steep rise in 2010s. At the same time, there is a robust upward trend in budget despite the weak profit.
+The average profit plot shows a downward trend since the 1960s, the decade filled with successful Disney animated films such as *The Jungle Book* and *One Hundred and One Dalmatians*. The non-parallel relationship between budget and profit persists even taking into account the increase number of animation production numbers. Although more films are produced, the sum of profit suffers a dip in the 2000s and fails to show a steep rise in 2010s. At the same time, there is a robust upward trend in budget despite the weak profit.
 
 
 ```{r, echo=FALSE}
@@ -149,7 +149,7 @@ grid.arrange(p2, p3, ncol=2)
 ```
 
  
-The 20 most profitable Disney animated films chart confirms this negative trend in budget and profit. At the first glance, you are tricked to think animated movies are more successful in recent decades. Movies produced in the 2000s and 2010s dominate the chart, with *Finding Nemo* and *Finding Dory* taking the top two spots at a strong $286 million each (which can buy you [the most expensive house in the US](https://www.forbes.com/forbes/welcome/?toURL=https://www.forbes.com/sites/karenhua/2017/01/18/inside-a-250-million-mansion-the-most-expensive-home-for-sale-in-the-u-s/&refURL=https://www.google.com/&referrer=https://www.google.com/), and still leave you a couple million for furniture!). 
+The 20 most profitable Disney animated films chart confirms this negative trend in budget and profit. At first glance, you are tricked to think animated movies are more successful in recent decades. Movies produced in the 2000s and 2010s dominate the chart, with *Finding Nemo* and *Finding Dory* taking the top two spots at a strong $286 million each (which can buy you [the most expensive house in the US](https://www.forbes.com/forbes/welcome/?toURL=https://www.forbes.com/sites/karenhua/2017/01/18/inside-a-250-million-mansion-the-most-expensive-home-for-sale-in-the-u-s/&refURL=https://www.google.com/&referrer=https://www.google.com/), and still leave you a couple million for furniture!). 
 
 
 ```{r}
@@ -177,7 +177,7 @@ profit_plot
 But when you take into account the budget, older films seem to be winning the race. Movies on this chart that cost the most also comes from the 2010s: *Finding Dory*, *Inside Out*, *Zootopia*, *Frozen*, and *Moana*. Although all movies on the chart before the 1970s had low budgets, they were extremely successful.  
 
 
-Take, for example, *Snow White and the Seven Dwarfs* (1937), the most profitable Disney animated film before the 1990s. This [first full-length animated film and the first Walt Disney Animation Studios film](https://en.wikipedia.org/wiki/Snow_White_and_the_Seven_Dwarfs_(1937_film)). Classics has become historical milestones, cultural icons, and a source of nostalgia. Classics like this one continue to gain an upper hand in competition with newer films: *Snow White*, with the lowest budget in the top 10, made greater profit than *Inside Out*.
+Take, for example, *Snow White and the Seven Dwarfs* (1937), the most profitable Disney animated film before the 1990s. This [first full-length animated film and the first Walt Disney Animation Studios film](https://en.wikipedia.org/wiki/Snow_White_and_the_Seven_Dwarfs_(1937_film)) has become historical milestones, cultural icons, and a source of nostalgia. Classics like this one continue to gain an upper hand in competition with newer films: *Snow White*, with the lowest budget in the top 10, made greater profit than *Inside Out*.
 
 <center><img src="http://images5.fanpop.com/image/photos/24800000/Snow-White-and-the-Seven-Dwarfs-snow-white-and-the-seven-dwarfs-24822887-450-253.gif" width="100%"></center>
 Snow White and the Seven Dwarfs (Source: [Fanpop](http://images5.fanpop.com/image/photos/24800000/Snow-White-and-the-Seven-Dwarfs-snow-white-and-the-seven-dwarfs-24822887-450-253.gif))
